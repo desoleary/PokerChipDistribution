@@ -23,24 +23,20 @@ public class PokerDistributionAssignment {
 
     public static void main(String[] args) throws IllegalArgumentException, AlgorithmException, CalculationException, PokerChipException {
 
-        String fileName = null;
         try {
-            fileName = readFileNameFrom(System.in);
+            String fileName = readFileNameFrom(System.in);
+            getPokerChipDistribution(fileName).getResult();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-            PokerChipList resultList = new PokerChipDistributionCommand()
+    static PokerChipList getPokerChipDistribution(String fileName) {
+        try {
+            return new PokerChipDistributionCommand()
                     .execute(readFileAsList(fileName));
-
-            resultList.getResult();
-
-        } catch (IOException ex) {
-            System.out.println(String.format(
-                    "IO exception caught trying to read the filename: '%s'",
-                    fileName));
-            System.exit(1);
-
-        } catch (MapperException e) {
-            System.out.println("Mapper exception caught trying to parse input.");
-            System.exit(1);
+        } catch (MapperException | PokerChipException | AlgorithmException | CalculationException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -49,12 +45,16 @@ public class PokerDistributionAssignment {
         return br.readLine();
     }
 
-    private static List<String> readFileAsList(String filePath) throws java.io.IOException {
-        FileReader reader = new FileReader(new File(filePath));
-        BufferedReader bin = new BufferedReader(reader);
+    private static List<String> readFileAsList(String filePath) {
         List<String> pokerList = new ArrayList<>();
-        for (String line = bin.readLine(); line != null; line = bin.readLine()) {
-            pokerList.add(line);
+        try {
+            FileReader reader = new FileReader(new File(filePath));
+            BufferedReader bin = new BufferedReader(reader);
+            for (String line = bin.readLine(); line != null; line = bin.readLine()) {
+                pokerList.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return pokerList;
     }
