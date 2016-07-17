@@ -159,6 +159,13 @@ public class PokerChip {
     }
 
     /**
+     * @return buyInAmount
+     */
+    public BigDecimal getBuyInAmount() {
+        return getDenomination().multiply(new BigDecimal(getBuyInQuantity()));
+    }
+
+    /**
      * @return _quantityRemaining
      */
     int getQuantityRemaining() {

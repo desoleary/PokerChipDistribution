@@ -20,12 +20,8 @@ abstract class PokerChipDistributionStrategyBase {
         //########## iterate over PokerChips, lowest denomination to highest
 
         for (PokerChip pokerChip : pokerChips) {
-            int buyInQuantity = pokerChip.buyInQuantityFor(remainingBuyIn);
-            pokerChip.setBuyInQuantity(buyInQuantity);
-            remainingBuyIn = Util.subtractFor(
-                    remainingBuyIn,
-                    pokerChip.getDenomination().multiply(new BigDecimal(pokerChip.getBuyInQuantity()))
-            );
+            pokerChip.setBuyInQuantity(pokerChip.buyInQuantityFor(remainingBuyIn));
+            remainingBuyIn = Util.subtractFor(remainingBuyIn, pokerChip.getBuyInAmount());
         }
 
         //########## remainingBuyIn < 0
