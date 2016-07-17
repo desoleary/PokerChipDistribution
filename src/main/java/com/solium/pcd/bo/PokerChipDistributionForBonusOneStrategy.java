@@ -8,11 +8,7 @@ public class PokerChipDistributionForBonusOneStrategy extends PokerChipDistribut
 
     @Override
     public PokerChipList calculate(PokerChipList list) throws CalculationException, PokerChipException {
-
-        //TODO: what the heck is this about
         PokerChipList pokerList = getPokerListWithBuyInOfOneForAllDenominations(list);
-        pokerList = getOptimumDistribution(list);
-
-        return pokerList;
+        return getOptimumDistribution(pokerList);
     }
 }

@@ -1,10 +1,11 @@
 package com.solium.pcd.domain;
 
 import com.solium.pcd.exception.PokerChipException;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+
+import static org.junit.Assert.assertEquals;
 
 public class PokerChipTest {
 
@@ -13,8 +14,8 @@ public class PokerChipTest {
 
         PokerChip chip = new PokerChip(new BigDecimal("1.00"), 1);
 
-        Assert.assertEquals(new BigDecimal("1.00"), chip.getDenomination());
-        Assert.assertEquals(1, chip.getQuantity());
+        assertEquals(new BigDecimal("1.00"), chip.getDenomination());
+        assertEquals(1, chip.getQuantity());
     }
 
     @Test
@@ -22,9 +23,9 @@ public class PokerChipTest {
 
         PokerChip chip = new PokerChip("Green", new BigDecimal("1.00"), 1);
 
-        Assert.assertEquals(new BigDecimal("1.00"), chip.getDenomination());
-        Assert.assertEquals(1, chip.getQuantity());
-        Assert.assertEquals("Green", chip.getColor());
+        assertEquals(new BigDecimal("1.00"), chip.getDenomination());
+        assertEquals(1, chip.getQuantity());
+        assertEquals("Green", chip.getColor());
     }
 
     @Test
@@ -33,11 +34,11 @@ public class PokerChipTest {
         PokerChip chip = new PokerChip("Green", new BigDecimal("1.00"), 1);
         chip.setBuyInQuantity(1);
 
-        Assert.assertEquals(new BigDecimal("1.00"), chip.getDenomination());
-        Assert.assertEquals(1, chip.getQuantity());
-        Assert.assertEquals("Green", chip.getColor());
-        Assert.assertEquals(1, chip.getBuyInQuantity());
-        Assert.assertEquals(0, chip.getQuantityRemaining());
+        assertEquals(new BigDecimal("1.00"), chip.getDenomination());
+        assertEquals(1, chip.getQuantity());
+        assertEquals("Green", chip.getColor());
+        assertEquals(1, chip.getBuyInQuantity());
+        assertEquals(0, chip.getQuantityRemaining());
     }
 
     @Test
@@ -47,12 +48,12 @@ public class PokerChipTest {
         chip.setBuyInQuantity(1);
         chip.setQuantitySetAside(1);
 
-        Assert.assertEquals(new BigDecimal("1.00"), chip.getDenomination());
-        Assert.assertEquals(1, chip.getQuantity());
-        Assert.assertEquals("Green", chip.getColor());
-        Assert.assertEquals(1, chip.getBuyInQuantity());
-        Assert.assertEquals(0, chip.getQuantityRemaining());
-        Assert.assertEquals(1, chip.getQuantitySetAside());
+        assertEquals(new BigDecimal("1.00"), chip.getDenomination());
+        assertEquals(1, chip.getQuantity());
+        assertEquals("Green", chip.getColor());
+        assertEquals(1, chip.getBuyInQuantity());
+        assertEquals(0, chip.getQuantityRemaining());
+        assertEquals(1, chip.getQuantitySetAside());
     }
 
     @Test
@@ -63,9 +64,9 @@ public class PokerChipTest {
         chip.setDenomination(new BigDecimal("2.00"));
         chip.setQuantity(2);
 
-        Assert.assertEquals(new BigDecimal("2.00"), chip.getDenomination());
-        Assert.assertEquals(2, chip.getQuantity());
-        Assert.assertEquals("Blue", chip.getColor());
+        assertEquals(new BigDecimal("2.00"), chip.getDenomination());
+        assertEquals(2, chip.getQuantity());
+        assertEquals("Blue", chip.getColor());
     }
 
     @Test(expected = NullPointerException.class)
@@ -126,7 +127,7 @@ public class PokerChipTest {
 
         PokerChip chip = new PokerChip("Green", new BigDecimal("1.00"), 2);
         chip.setQuantitySetAside(1);
-        Assert.assertEquals(1, chip.getQuantity());
+        assertEquals(1, chip.getQuantity());
         chip.setQuantitySetAside(3);
     }
 }

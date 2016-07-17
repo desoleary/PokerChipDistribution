@@ -6,11 +6,12 @@ import com.solium.pcd.exception.CalculationException;
 import com.solium.pcd.exception.MapperException;
 import com.solium.pcd.exception.PokerChipException;
 import com.solium.pcd.util.Constants.Algorithm;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class PokerChipMapperTest {
 
@@ -19,19 +20,19 @@ public class PokerChipMapperTest {
 
         PokerChipList actual = new PokerChipMapper().mapFrom(getTestCaseOneData());
 
-        Assert.assertEquals(Algorithm.BASIC, actual.getAlgorithm());
-        Assert.assertEquals("$0.05", actual.get(0).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(0).getQuantity());
-        Assert.assertEquals("$0.10", actual.get(1).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(1).getQuantity());
-        Assert.assertEquals("$0.25", actual.get(2).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(2).getQuantity());
-        Assert.assertEquals("$0.50", actual.get(3).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(3).getQuantity());
-        Assert.assertEquals("$1.00", actual.get(4).getDenominationInDollars());
-        Assert.assertEquals(5, actual.get(4).getQuantity());
-        Assert.assertEquals("$2.00", actual.get(5).getDenominationInDollars());
-        Assert.assertEquals(5, actual.get(5).getQuantity());
+        assertEquals(Algorithm.BASIC, actual.getAlgorithm());
+        assertEquals("$0.05", actual.get(0).getDenominationInDollars());
+        assertEquals(10, actual.get(0).getQuantity());
+        assertEquals("$0.10", actual.get(1).getDenominationInDollars());
+        assertEquals(10, actual.get(1).getQuantity());
+        assertEquals("$0.25", actual.get(2).getDenominationInDollars());
+        assertEquals(10, actual.get(2).getQuantity());
+        assertEquals("$0.50", actual.get(3).getDenominationInDollars());
+        assertEquals(10, actual.get(3).getQuantity());
+        assertEquals("$1.00", actual.get(4).getDenominationInDollars());
+        assertEquals(5, actual.get(4).getQuantity());
+        assertEquals("$2.00", actual.get(5).getDenominationInDollars());
+        assertEquals(5, actual.get(5).getQuantity());
     }
 
     @Test
@@ -39,19 +40,19 @@ public class PokerChipMapperTest {
 
         PokerChipList actual = new PokerChipForBonusOneMapper().mapFrom(getTestCaseTwoData());
 
-        Assert.assertEquals(Algorithm.BONUS_ONE, actual.getAlgorithm());
-        Assert.assertEquals("$0.05", actual.get(0).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(0).getQuantity());
-        Assert.assertEquals("$0.10", actual.get(1).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(1).getQuantity());
-        Assert.assertEquals("$0.25", actual.get(2).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(2).getQuantity());
-        Assert.assertEquals("$0.50", actual.get(3).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(3).getQuantity());
-        Assert.assertEquals("$1.00", actual.get(4).getDenominationInDollars());
-        Assert.assertEquals(5, actual.get(4).getQuantity());
-        Assert.assertEquals("$2.00", actual.get(5).getDenominationInDollars());
-        Assert.assertEquals(5, actual.get(5).getQuantity());
+        assertEquals(Algorithm.BONUS_ONE, actual.getAlgorithm());
+        assertEquals("$0.05", actual.get(0).getDenominationInDollars());
+        assertEquals(10, actual.get(0).getQuantity());
+        assertEquals("$0.10", actual.get(1).getDenominationInDollars());
+        assertEquals(10, actual.get(1).getQuantity());
+        assertEquals("$0.25", actual.get(2).getDenominationInDollars());
+        assertEquals(10, actual.get(2).getQuantity());
+        assertEquals("$0.50", actual.get(3).getDenominationInDollars());
+        assertEquals(10, actual.get(3).getQuantity());
+        assertEquals("$1.00", actual.get(4).getDenominationInDollars());
+        assertEquals(5, actual.get(4).getQuantity());
+        assertEquals("$2.00", actual.get(5).getDenominationInDollars());
+        assertEquals(5, actual.get(5).getQuantity());
     }
 
     @Test
@@ -59,25 +60,25 @@ public class PokerChipMapperTest {
 
         PokerChipList actual = new PokerChipForBonusTwoMapper().mapFrom(getTestCaseThreeData());
 
-        Assert.assertEquals(Algorithm.BONUS_TWO, actual.getAlgorithm());
-        Assert.assertEquals("$0.01", actual.get(0).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(0).getQuantity());
-        Assert.assertEquals("Taupe", actual.get(0).getColor());
-        Assert.assertEquals("$0.05", actual.get(1).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(1).getQuantity());
-        Assert.assertEquals("Yellow", actual.get(1).getColor());
-        Assert.assertEquals("$0.10", actual.get(2).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(2).getQuantity());
-        Assert.assertEquals("Green", actual.get(2).getColor());
-        Assert.assertEquals("$0.25", actual.get(3).getDenominationInDollars());
-        Assert.assertEquals(10, actual.get(3).getQuantity());
-        Assert.assertEquals("Black", actual.get(3).getColor());
-        Assert.assertEquals("$0.50", actual.get(4).getDenominationInDollars());
-        Assert.assertEquals(5, actual.get(4).getQuantity());
-        Assert.assertEquals("Blue", actual.get(4).getColor());
-        Assert.assertEquals("$1.00", actual.get(5).getDenominationInDollars());
-        Assert.assertEquals(5, actual.get(5).getQuantity());
-        Assert.assertEquals("Red", actual.get(5).getColor());
+        assertEquals(Algorithm.BONUS_TWO, actual.getAlgorithm());
+        assertEquals("$0.01", actual.get(0).getDenominationInDollars());
+        assertEquals(10, actual.get(0).getQuantity());
+        assertEquals("Taupe", actual.get(0).getColor());
+        assertEquals("$0.05", actual.get(1).getDenominationInDollars());
+        assertEquals(10, actual.get(1).getQuantity());
+        assertEquals("Yellow", actual.get(1).getColor());
+        assertEquals("$0.10", actual.get(2).getDenominationInDollars());
+        assertEquals(10, actual.get(2).getQuantity());
+        assertEquals("Green", actual.get(2).getColor());
+        assertEquals("$0.25", actual.get(3).getDenominationInDollars());
+        assertEquals(10, actual.get(3).getQuantity());
+        assertEquals("Black", actual.get(3).getColor());
+        assertEquals("$0.50", actual.get(4).getDenominationInDollars());
+        assertEquals(5, actual.get(4).getQuantity());
+        assertEquals("Blue", actual.get(4).getColor());
+        assertEquals("$1.00", actual.get(5).getDenominationInDollars());
+        assertEquals(5, actual.get(5).getQuantity());
+        assertEquals("Red", actual.get(5).getColor());
     }
 
     private List<String> getTestCaseOneData() {
