@@ -32,13 +32,13 @@ abstract class PokerChipDistributionStrategyBase {
                 remainingBuyIn = Util.subtractFor(remainingBuyIn, denomination.multiply(new BigDecimal(quantity)));
             } else if (maxQuantity > 0 && maxQuantity < quantity) {
                 pokerChip.setBuyInQuantity(maxQuantity);
-                remainingBuyIn = Util.roundToDecimalPlaces(remainingBuyIn.subtract(denomination.multiply(new BigDecimal(maxQuantity))));
+                remainingBuyIn = Util.subtractFor(remainingBuyIn, denomination.multiply(new BigDecimal(maxQuantity)));
             }
 
             //########## - remainingQty > 0 && (currentQty - buyInQty > 0) -> and 1 to buyInQty, subtract to remainder ( wtf - test, how it gets here ??? )
             if (remainingBuyIn.compareTo(new BigDecimal("0.00")) > 0 && (pokerChip.getQuantity() - pokerChip.getBuyInQuantity() > 0)) {
                 pokerChip.setBuyInQuantity(pokerChip.getBuyInQuantity() + 1);
-                remainingBuyIn = Util.roundToDecimalPlaces(remainingBuyIn.subtract(denomination));
+                remainingBuyIn = Util.subtractFor(remainingBuyIn, denomination);
             }
         }
 
@@ -70,7 +70,7 @@ abstract class PokerChipDistributionStrategyBase {
 
                     //########## --- reduce buyInQuantity, overBuyIn  by maxQuantityAllowed
                     current.setBuyInQuantity(buyInQuantity - maxQuantityAllowed);
-                    overBuyIn = Util.roundToDecimalPlaces(overBuyIn.subtract(denomination.multiply(new BigDecimal(maxQuantityAllowed))));
+                    overBuyIn = Util.subtractFor(overBuyIn, denomination.multiply(new BigDecimal(maxQuantityAllowed)));
                     remainingBuyIn = Util.roundToDecimalPlaces(remainingBuyIn.add(denomination.multiply(new BigDecimal(maxQuantityAllowed))));
                 }
             }
@@ -119,7 +119,7 @@ abstract class PokerChipDistributionStrategyBase {
             current.setQuantitySetAside(Constants.BONUS_TWO_MIN_QUANTITY);
             initialBuyIn = Util.roundToDecimalPlaces(initialBuyIn.add(current.getDenomination()));
         }
-        list.setBuyInAmount(Util.roundToDecimalPlaces(list.getBuyInAmount().subtract(initialBuyIn)));
+        list.setBuyInAmount(Util.subtractFor(list.getBuyInAmount(), initialBuyIn));
 
         return list;
     }
