@@ -1,8 +1,6 @@
 package com.solium.pcd.domain;
 
 import com.solium.pcd.exception.PokerChipException;
-import com.solium.pcd.util.Constants;
-import com.solium.pcd.util.Quantity;
 import com.solium.pcd.util.Util;
 
 import java.math.BigDecimal;
@@ -59,8 +57,27 @@ public class PokerChip {
         setQuantityRemaining(quantity);
     }
 
-    public int maxQuantityFor(final BigDecimal quantity) {
-        return Util.divideFor(quantity, getDenomination()).intValue();
+    //TODO: add some tests
+    public int buyInQuantityFor(final BigDecimal remainingBuyIn) throws PokerChipException {
+        int buyInQuantity = buyInQuantityUpToMax(remainingBuyIn, getQuantity());
+
+        //########## - remainingQty > 0 && (currentQty - buyInQty > 0) -> and 1 to buyInQty, subtract to remainder ( wtf - test, how it gets here ??? )
+        if (remainingBuyIn.compareTo(new BigDecimal(0.00)) > 0
+                && (getQuantity() - buyInQuantity > 0)) {
+            buyInQuantity = buyInQuantity + 1;
+        }
+
+        return buyInQuantity;
+    }
+
+    public int buyInQuantityUpToMax(BigDecimal remainingBuyIn, int quantity) {
+        int maxQuantity = Util.divideFor(remainingBuyIn, getDenomination()).intValue();
+
+        int buyInQuantity = quantity;
+        if (maxQuantity > 0 && maxQuantity < buyInQuantity) {
+            buyInQuantity = maxQuantity;
+        }
+        return buyInQuantity;
     }
 
     /**

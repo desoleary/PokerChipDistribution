@@ -1,6 +1,6 @@
 package com.solium.pcd.command;
 
-import com.solium.pcd.domain.PokerChipList;
+import com.solium.pcd.domain.PokerChips;
 import com.solium.pcd.exception.AlgorithmException;
 import com.solium.pcd.exception.CalculationException;
 import com.solium.pcd.exception.MapperException;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PokerChipDistributionCommand {
 
-    public final PokerChipList execute(final List<String> inputList) throws MapperException, CalculationException, AlgorithmException, PokerChipException {
+    public final PokerChips execute(final List<String> inputList) throws MapperException, CalculationException, AlgorithmException, PokerChipException {
         IPokerChipDistribution mappedInput = PokerChipDistributionFactory.createPokerChipDistributionFor(inputList);
         return mappedInput.pokerDistributionFor(inputList);
     }

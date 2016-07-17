@@ -1,6 +1,6 @@
 package com.solium.pcd.command;
 
-import com.solium.pcd.domain.PokerChipList;
+import com.solium.pcd.domain.PokerChips;
 import com.solium.pcd.exception.AlgorithmException;
 import com.solium.pcd.exception.CalculationException;
 import com.solium.pcd.exception.MapperException;
@@ -18,7 +18,7 @@ public class PokerChipDistributionCommandTest {
     @Test
     public void shouldReturnOptimumDistributionForProblemOne() throws AlgorithmException, CalculationException, MapperException, PokerChipException {
 
-        PokerChipList actual = new PokerChipDistributionCommand().execute(getTestCaseOneData());
+        PokerChips actual = new PokerChipDistributionCommand().execute(getTestCaseOneData());
 
         assertEquals(Algorithm.BASIC, actual.getAlgorithm());
         assertEquals("$2.00", actual.get(0).getDenominationInDollars());
@@ -38,7 +38,7 @@ public class PokerChipDistributionCommandTest {
     @Test
     public void shouldReturnOptimumDistributionForProblemOnePartTwo() throws AlgorithmException, CalculationException, MapperException, PokerChipException {
 
-        PokerChipList actual = new PokerChipDistributionCommand().execute(getTestCaseFourData());
+        PokerChips actual = new PokerChipDistributionCommand().execute(getTestCaseFourData());
 
         assertEquals(Algorithm.BASIC, actual.getAlgorithm());
         assertEquals("$1.00", actual.get(0).getDenominationInDollars());
@@ -52,7 +52,7 @@ public class PokerChipDistributionCommandTest {
     @Test
     public void shouldReturnOptimumDistributionForProblemTwo() throws AlgorithmException, CalculationException, MapperException, PokerChipException {
 
-        PokerChipList actual = new PokerChipDistributionCommand().execute(getTestCaseTwoData());
+        PokerChips actual = new PokerChipDistributionCommand().execute(getTestCaseTwoData());
 
         assertEquals(Algorithm.BONUS_ONE, actual.getAlgorithm());
         assertEquals("$2.00", actual.get(0).getDenominationInDollars());
@@ -72,7 +72,7 @@ public class PokerChipDistributionCommandTest {
     @Test
     public void shouldReturnOptimumDistributionForProblemThree() throws AlgorithmException, CalculationException, MapperException, PokerChipException {
 
-        PokerChipList actual = new PokerChipDistributionCommand().execute(getTestCaseThreeData());
+        PokerChips actual = new PokerChipDistributionCommand().execute(getTestCaseThreeData());
 
         assertEquals(Algorithm.BONUS_TWO, actual.getAlgorithm());
         assertEquals("$1.00", actual.get(0).getDenominationInDollars());

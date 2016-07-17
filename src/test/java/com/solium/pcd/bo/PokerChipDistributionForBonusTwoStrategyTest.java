@@ -1,6 +1,6 @@
 package com.solium.pcd.bo;
 
-import com.solium.pcd.domain.PokerChipList;
+import com.solium.pcd.domain.PokerChips;
 import com.solium.pcd.exception.AlgorithmException;
 import com.solium.pcd.exception.CalculationException;
 import com.solium.pcd.exception.MapperException;
@@ -18,7 +18,7 @@ public class PokerChipDistributionForBonusTwoStrategyTest {
     @Test
     public void shouldReturnOptimumDistributionForProblemThree() throws AlgorithmException, CalculationException, MapperException, PokerChipException {
 
-        PokerChipList actual = new PokerChipDistributionForBonusTwoStrategy()
+        PokerChips actual = new PokerChipDistributionForBonusTwoStrategy()
                 .calculate(new PokerChipForBonusTwoMapper().mapFrom(getTestCaseOneData()));
 
         assertEquals("$1.00", actual.get(0).getDenominationInDollars());
@@ -38,7 +38,7 @@ public class PokerChipDistributionForBonusTwoStrategyTest {
     @Test
     public void shouldReturnOptimumDistributionOfMaxBuyInForProblemThree() throws AlgorithmException, CalculationException, MapperException, PokerChipException {
 
-        PokerChipList actual = new PokerChipDistributionForBonusTwoStrategy()
+        PokerChips actual = new PokerChipDistributionForBonusTwoStrategy()
                 .calculate(new PokerChipForBonusTwoMapper().mapFrom(getTestCaseTwoData()));
 
         assertEquals("$1.00", actual.get(0).getDenominationInDollars());
@@ -58,7 +58,7 @@ public class PokerChipDistributionForBonusTwoStrategyTest {
     @Test
     public void shouldReturnOptimumDistributionOfMinBuyInForProblemThree() throws AlgorithmException, CalculationException, MapperException, PokerChipException {
 
-        PokerChipList actual = new PokerChipDistributionForBonusTwoStrategy()
+        PokerChips actual = new PokerChipDistributionForBonusTwoStrategy()
                 .calculate(new PokerChipForBonusTwoMapper().mapFrom(getTestCaseThreeData()));
 
         assertEquals("$1.00", actual.get(0).getDenominationInDollars());

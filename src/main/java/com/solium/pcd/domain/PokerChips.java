@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PokerChipList extends ArrayList<PokerChip> {
+public class PokerChips extends ArrayList<PokerChip> {
 
     private static final long serialVersionUID = 1L;
     private int _playerCount = 0;
@@ -16,7 +16,7 @@ public class PokerChipList extends ArrayList<PokerChip> {
 
     private Algorithm _algorithm = Algorithm.BASIC;
 
-    public PokerChipList(List<PokerChip> list) {
+    public PokerChips(List<PokerChip> list) {
         Collections.sort(list, new PokerChipComparator());
         addAll(list);
     }

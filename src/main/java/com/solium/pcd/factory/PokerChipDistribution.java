@@ -1,7 +1,7 @@
 package com.solium.pcd.factory;
 
 import com.solium.pcd.bo.IPokerChipDistributionStrategy;
-import com.solium.pcd.domain.PokerChipList;
+import com.solium.pcd.domain.PokerChips;
 import com.solium.pcd.exception.AlgorithmException;
 import com.solium.pcd.exception.CalculationException;
 import com.solium.pcd.exception.MapperException;
@@ -20,7 +20,7 @@ class PokerChipDistribution implements IPokerChipDistribution {
         _strategy = strategy;
     }
 
-    public PokerChipList pokerDistributionFor(List<String> input) throws CalculationException, MapperException, PokerChipException, AlgorithmException {
+    public PokerChips pokerDistributionFor(List<String> input) throws CalculationException, MapperException, PokerChipException, AlgorithmException {
         return _strategy.calculate(_mapper.mapFrom(input));
     }
 }

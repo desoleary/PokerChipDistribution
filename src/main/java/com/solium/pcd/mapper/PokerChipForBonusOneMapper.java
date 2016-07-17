@@ -1,6 +1,6 @@
 package com.solium.pcd.mapper;
 
-import com.solium.pcd.domain.PokerChipList;
+import com.solium.pcd.domain.PokerChips;
 import com.solium.pcd.exception.MapperException;
 import com.solium.pcd.exception.PokerChipException;
 import com.solium.pcd.util.Constants.Algorithm;
@@ -12,11 +12,11 @@ public class PokerChipForBonusOneMapper extends PokerChipMapperBase implements I
     private static final int REQUIRED_NUMBER_OF_LINES = 4;
 
     @Override
-    public PokerChipList mapFrom(List<String> pokerDetailsList) throws MapperException, PokerChipException {
+    public PokerChips mapFrom(List<String> pokerDetailsList) throws MapperException, PokerChipException {
 
         validateInput(pokerDetailsList);
 
-        PokerChipList pokerList = getPokerList(pokerDetailsList.subList(1, (pokerDetailsList.size())));
+        PokerChips pokerList = getPokerList(pokerDetailsList.subList(1, (pokerDetailsList.size())));
         pokerList.setAlgorithm(Algorithm.BONUS_ONE);
 
         return pokerList;

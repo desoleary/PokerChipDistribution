@@ -1,7 +1,7 @@
 package com.solium.pcd.bo;
 
 import com.solium.pcd.domain.PokerChip;
-import com.solium.pcd.domain.PokerChipList;
+import com.solium.pcd.domain.PokerChips;
 import com.solium.pcd.exception.CalculationException;
 import com.solium.pcd.exception.PokerChipException;
 import com.solium.pcd.util.Constants;
@@ -13,39 +13,25 @@ import java.util.ListIterator;
 
 abstract class PokerChipDistributionStrategyBase {
 
-    final PokerChipList getOptimumDistribution(final PokerChipList list) throws CalculationException, PokerChipException {
+    final PokerChips getOptimumDistribution(final PokerChips pokerChips) throws CalculationException, PokerChipException {
 
-        PokerChipList resultList = list;
-        BigDecimal buyInAmount = resultList.getBuyInAmount();
-        BigDecimal remainingBuyIn = buyInAmount;
+        BigDecimal remainingBuyIn = pokerChips.getBuyInAmount();
 
         //########## iterate over PokerChips, lowest denomination to highest
-        for (PokerChip pokerChip : resultList) {
-            int quantity = pokerChip.getQuantity();
-            BigDecimal denomination = pokerChip.getDenomination();
 
-            int maxQuantity = pokerChip.maxQuantityFor(remainingBuyIn);
-            //########## - if maxQuantityAvailable is greater or equal to actualQuantity then set to the buyInQuantiy for this chip and , subtract to remainder
-            //########## - otherwise set buyInQuantity to quantity, subtract to remainder
-            if (maxQuantity >= quantity) {
-                pokerChip.setBuyInQuantity(quantity);
-                remainingBuyIn = Util.subtractFor(remainingBuyIn, denomination.multiply(new BigDecimal(quantity)));
-            } else if (maxQuantity > 0 && maxQuantity < quantity) {
-                pokerChip.setBuyInQuantity(maxQuantity);
-                remainingBuyIn = Util.subtractFor(remainingBuyIn, denomination.multiply(new BigDecimal(maxQuantity)));
-            }
-
-            //########## - remainingQty > 0 && (currentQty - buyInQty > 0) -> and 1 to buyInQty, subtract to remainder ( wtf - test, how it gets here ??? )
-            if (remainingBuyIn.compareTo(new BigDecimal("0.00")) > 0 && (pokerChip.getQuantity() - pokerChip.getBuyInQuantity() > 0)) {
-                pokerChip.setBuyInQuantity(pokerChip.getBuyInQuantity() + 1);
-                remainingBuyIn = Util.subtractFor(remainingBuyIn, denomination);
-            }
+        for (PokerChip pokerChip : pokerChips) {
+            int buyInQuantity = pokerChip.buyInQuantityFor(remainingBuyIn);
+            pokerChip.setBuyInQuantity(buyInQuantity);
+            remainingBuyIn = Util.subtractFor(
+                    remainingBuyIn,
+                    pokerChip.getDenomination().multiply(new BigDecimal(pokerChip.getBuyInQuantity()))
+            );
         }
 
         //########## remainingBuyIn < 0
-        if (remainingBuyIn.compareTo(new BigDecimal("0.00")) < 0) {
-            Collections.reverse(resultList);
-            ListIterator<PokerChip> iter = resultList.listIterator();
+        if (remainingBuyIn.compareTo(new BigDecimal(0.00)) < 0) {
+            Collections.reverse(pokerChips);
+            ListIterator<PokerChip> iter = pokerChips.listIterator();
 
             BigDecimal overBuyIn = remainingBuyIn.abs();
 
@@ -76,12 +62,12 @@ abstract class PokerChipDistributionStrategyBase {
             }
 
             //########## - reverse result
-            Collections.reverse(resultList);
+            Collections.reverse(pokerChips);
         }
 
         BigDecimal totalBuyIn = new BigDecimal("0.00");
         //########## totalBuyIn = 0, iterate over result
-        for (PokerChip current : resultList) {
+        for (PokerChip current : pokerChips) {
 
             //########## - if quantitySetAside > 0
             if (current.getQuantitySetAside() > 0) {
@@ -90,7 +76,7 @@ abstract class PokerChipDistributionStrategyBase {
                 BigDecimal denomination = current.getDenomination();
                 current.setQuantitySetAside(0);
                 current.setBuyInQuantity(current.getBuyInQuantity() + quantitySetAside);
-                list.setBuyInAmount(Util.roundToDecimalPlaces(list.getBuyInAmount().add(denomination.multiply(new BigDecimal(quantitySetAside)))));
+                pokerChips.setBuyInAmount(Util.roundToDecimalPlaces(pokerChips.getBuyInAmount().add(denomination.multiply(new BigDecimal(quantitySetAside)))));
             }
 
             //########## - totalBuyIn += denomination * buyInQuantity
@@ -100,19 +86,19 @@ abstract class PokerChipDistributionStrategyBase {
         }
 
         //########## throw exception is buyInAmount != totalBuyIn
-        if (!(0 == resultList.getBuyInAmount().compareTo(totalBuyIn))) {
-            throw new CalculationException(String.format("Unable to get optimum poker chip distribution from given inputs. Expected buy in was %s but was calculated as %s", resultList.getBuyInAmount(), totalBuyIn));
+        if (!(0 == pokerChips.getBuyInAmount().compareTo(totalBuyIn))) {
+            throw new CalculationException(String.format("Unable to get optimum poker chip distribution from given inputs. Expected buy in was %s but was calculated as %s", pokerChips.getBuyInAmount(), totalBuyIn));
         }
 
-        //########## reverse list to prepare for output
-        // Reverse the poker distribution list such that the highest denomination will be at the top as required for output.
-        Collections.reverse(resultList);
+        //########## reverse pokerChips to prepare for output
+        // Reverse the poker distribution pokerChips such that the highest denomination will be at the top as required for output.
+        Collections.reverse(pokerChips);
 
-        return resultList;
+        return pokerChips;
     }
 
     //TODO move to PokerChipDistributionForBonusOneStrategy
-    final PokerChipList getPokerListWithBuyInOfOneForAllDenominations(final PokerChipList list) throws PokerChipException {
+    final PokerChips getPokerListWithBuyInOfOneForAllDenominations(final PokerChips list) throws PokerChipException {
 
         BigDecimal initialBuyIn = new BigDecimal("0.00");
         for (PokerChip current : list) {

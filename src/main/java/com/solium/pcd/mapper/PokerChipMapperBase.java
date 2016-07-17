@@ -1,7 +1,7 @@
 package com.solium.pcd.mapper;
 
 import com.solium.pcd.domain.PokerChip;
-import com.solium.pcd.domain.PokerChipList;
+import com.solium.pcd.domain.PokerChips;
 import com.solium.pcd.exception.MapperException;
 import com.solium.pcd.exception.PokerChipException;
 import com.solium.pcd.util.Constants;
@@ -133,7 +133,7 @@ abstract class PokerChipMapperBase {
         return list;
     }
 
-    final PokerChipList getPokerList(List<String> pokerDetailsList) throws MapperException, PokerChipException {
+    final PokerChips getPokerList(List<String> pokerDetailsList) throws MapperException, PokerChipException {
 
         Iterator<String> listItr = pokerDetailsList.iterator();
         String chipBreakdown = listItr.next();
@@ -143,14 +143,14 @@ abstract class PokerChipMapperBase {
 
         List<PokerChip> list = getChipBreakdownList(chipBreakdown, numberOfPlayers);
 
-        PokerChipList pokerList = new PokerChipList(list);
+        PokerChips pokerList = new PokerChips(list);
         pokerList.setBuyInAmount(buyIn);
         pokerList.setPlayerCount(numberOfPlayers);
 
         return pokerList;
     }
 
-    final PokerChipList getBonusTwoPokerList(List<String> pokerDetailsList) throws MapperException, PokerChipException {
+    final PokerChips getBonusTwoPokerList(List<String> pokerDetailsList) throws MapperException, PokerChipException {
 
         Iterator<String> listItr = pokerDetailsList.iterator();
         String chipBreakdown = listItr.next();
@@ -159,7 +159,7 @@ abstract class PokerChipMapperBase {
 
         List<PokerChip> list = getBonusTwoChipBreakdownList(chipBreakdown, numberOfPlayers);
 
-        PokerChipList pokerList = new PokerChipList(list);
+        PokerChips pokerList = new PokerChips(list);
         pokerList.setBuyInAmount(buyIn);
         pokerList.setPlayerCount(numberOfPlayers);
 
