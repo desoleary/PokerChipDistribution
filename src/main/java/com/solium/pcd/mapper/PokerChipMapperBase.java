@@ -91,7 +91,7 @@ abstract class PokerChipMapperBase {
 
             if (m.find()) {
                 int quantity = Integer.parseInt(m.group(1)) / numberOfPlayers;
-                BigDecimal denomination = Util.convertAmountToBigDecimal(m.group(2), Constants.NUMBER_OF_DECIMAL_PLACES);
+                BigDecimal denomination = Util.convertAmountToBigDecimal(m.group(2));
 
                 list.add(new PokerChip(denomination, quantity));
             } else {
@@ -139,7 +139,7 @@ abstract class PokerChipMapperBase {
         String chipBreakdown = listItr.next();
 
         int numberOfPlayers = Integer.parseInt(listItr.next());
-        BigDecimal buyIn = Util.convertMonetaryAmountToBigDecimal(listItr.next(), Constants.NUMBER_OF_DECIMAL_PLACES);
+        BigDecimal buyIn = Util.convertMonetaryAmountToBigDecimal(listItr.next());
 
         List<PokerChip> list = getChipBreakdownList(chipBreakdown, numberOfPlayers);
 
@@ -155,7 +155,7 @@ abstract class PokerChipMapperBase {
         Iterator<String> listItr = pokerDetailsList.iterator();
         String chipBreakdown = listItr.next();
         int numberOfPlayers = Integer.parseInt(listItr.next());
-        BigDecimal buyIn = Util.convertMonetaryAmountToBigDecimal(listItr.next(), Constants.NUMBER_OF_DECIMAL_PLACES);
+        BigDecimal buyIn = Util.convertMonetaryAmountToBigDecimal(listItr.next());
 
         List<PokerChip> list = getBonusTwoChipBreakdownList(chipBreakdown, numberOfPlayers);
 

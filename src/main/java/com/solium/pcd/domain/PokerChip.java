@@ -1,6 +1,8 @@
 package com.solium.pcd.domain;
 
 import com.solium.pcd.exception.PokerChipException;
+import com.solium.pcd.util.Constants;
+import com.solium.pcd.util.Quantity;
 import com.solium.pcd.util.Util;
 
 import java.math.BigDecimal;
@@ -55,6 +57,10 @@ public class PokerChip {
         setDenomination(denomination);
         setQuantity(quantity);
         setQuantityRemaining(quantity);
+    }
+
+    public int maxQuantityFor(final BigDecimal quantity) {
+        return Util.divideFor(quantity, getDenomination()).intValue();
     }
 
     /**

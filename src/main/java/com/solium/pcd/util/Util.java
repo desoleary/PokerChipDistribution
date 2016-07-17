@@ -17,45 +17,36 @@ public class Util {
      * rounds value to desired decimal places.
      *
      * @param val                   big decimal value
-     * @param numberOfDecimalPlaces number of decimal places
      * @return big decimal with specified decimal places
      */
-    public static BigDecimal roundToDecimalPlaces(final BigDecimal val, final int numberOfDecimalPlaces) {
+    public static BigDecimal roundToDecimalPlaces(final BigDecimal val) {
 
         int ROUNDING_MODE = BigDecimal.ROUND_HALF_EVEN;
-        return val.setScale(numberOfDecimalPlaces, ROUNDING_MODE);
-    }
-
-    /**
-     * @param val
-     * @param numberOfDecimalPlaces
-     * @return
-     * @throws NumberFormatException
-     */
-    public static BigDecimal roundToDecimalPlaces(final String val, final int numberOfDecimalPlaces) throws NumberFormatException {
-        return roundToDecimalPlaces(new BigDecimal(val), numberOfDecimalPlaces);
+        return val.setScale(Constants.NUMBER_OF_DECIMAL_PLACES, ROUNDING_MODE);
     }
 
     /**
      * @param currency
-     * @param numberOfDecimalPlaces
      * @return big decimal value of given currency
      */
-    public static BigDecimal convertAmountToBigDecimal(final String currency, final int numberOfDecimalPlaces) {
-        return roundToDecimalPlaces(new BigDecimal(currency), numberOfDecimalPlaces);
+    public static BigDecimal convertAmountToBigDecimal(final String currency) {
+        return roundToDecimalPlaces(new BigDecimal(currency));
     }
 
     /**
      * @param currency
-     * @param numberOfDecimalPlaces
      * @return big decimal value of given currency
      */
-    public static BigDecimal convertMonetaryAmountToBigDecimal(final String currency, final int numberOfDecimalPlaces) {
-        return roundToDecimalPlaces(new BigDecimal(currency.substring(MONETARY_CHARACTER_OFFSET_INDEX)), numberOfDecimalPlaces);
+    public static BigDecimal convertMonetaryAmountToBigDecimal(final String currency) {
+        return roundToDecimalPlaces(new BigDecimal(currency.substring(MONETARY_CHARACTER_OFFSET_INDEX)));
     }
 
-    public static BigDecimal divideFor(final BigDecimal val1, final BigDecimal val2, final int numberOfDecimalPlaces) {
-        return val1.divide(val2, numberOfDecimalPlaces, RoundingMode.HALF_UP);
+    public static BigDecimal divideFor(final BigDecimal val1, final BigDecimal val2) {
+        return val1.divide(val2, Constants.NUMBER_OF_DECIMAL_PLACES, RoundingMode.HALF_UP);
+    }
+
+    public static BigDecimal subtractFor(final BigDecimal val1, final BigDecimal val2) {
+        return roundToDecimalPlaces(val1.subtract(val2));
     }
 
     /**
