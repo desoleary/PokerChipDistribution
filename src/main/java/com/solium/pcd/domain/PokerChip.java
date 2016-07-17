@@ -59,7 +59,7 @@ public class PokerChip {
 
     //TODO: add some tests
     public int buyInQuantityFor(final BigDecimal remainingBuyIn) throws PokerChipException {
-        int buyInQuantity = buyInQuantityUpToMax(remainingBuyIn, getQuantity());
+        int buyInQuantity = buyInQuantityUpToMax(remainingBuyIn);
 
         //########## - remainingQty > 0 && (currentQty - buyInQty > 0) -> and 1 to buyInQty, subtract to remainder ( wtf - test, how it gets here ??? )
         if (remainingBuyIn.compareTo(new BigDecimal(0.00)) > 0
@@ -70,10 +70,10 @@ public class PokerChip {
         return buyInQuantity;
     }
 
-    public int buyInQuantityUpToMax(BigDecimal remainingBuyIn, int quantity) {
+    private int buyInQuantityUpToMax(BigDecimal remainingBuyIn) {
         int maxQuantity = Util.divideFor(remainingBuyIn, getDenomination()).intValue();
 
-        int buyInQuantity = quantity;
+        int buyInQuantity = getQuantity();
         if (maxQuantity > 0 && maxQuantity < buyInQuantity) {
             buyInQuantity = maxQuantity;
         }
